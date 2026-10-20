@@ -11,6 +11,34 @@ let totalItems = 10; // change this if you do more than 10 items
 
 async function getData() {
     // YOUR CODE HERE
+     try {
+        const dogImages = [];
+        for (let i = 0; i < totalItems; i++) {
+            const response = await fetch('https://dog.ceo/api/breeds/image/random');
+            const data = await response.json();
+            dogImages.push(data.message); 
+        }
+
+        dogImages.forEach((imageUrl, index) => {
+            const li = document.createElement('li');
+
+
+            if (index == 0) {
+                li.classList.add('active');
+            }
+
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = 'A random dog';
+            img.draggable = false;
+
+            li.appendChild(img);
+            frame.appendChild(li);
+        });
+
+    } catch (error) {
+         console.error('error:', error);
+    }
 
 }
 
